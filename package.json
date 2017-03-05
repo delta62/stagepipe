@@ -1,6 +1,7 @@
 {
   "name": "stagepipe",
   "version": "0.0.1",
+  "main": "lib/stagepipe.js",
   "scripts": {
     "pretest": "eslint lib/ test/",
     "test": "mocha"
