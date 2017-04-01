@@ -1,6 +1,6 @@
 {
   "name": "stagepipe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/stagepipe.js",
   "scripts": {
     "pretest": "eslint lib/ test/",
