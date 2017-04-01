@@ -65,7 +65,7 @@ You can split streams into as many concurrent pipes as you'd like:
 
 Note that it *is* valid to terminate a pipeline with multipe pipes even though
 only one output will be produced. In the previous example, the output of the
-pipeline would be the output of the `greetUser` function.
+pipeline would be the output of the `getFirstName` function.
 
 ### Stages
 
@@ -75,7 +75,7 @@ you can omit the array notation for convenience:
 ``` js
 [
   split(), // <-- There is only one pipe in this stage, don't need [ ]
-  [ getFirstName, getEmail ]
+  [ getFirstName, getEmail ] <-- Multiple pipes, must wrap in [ ]!
 ]
 ```
 
