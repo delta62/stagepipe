@@ -8,7 +8,7 @@ const {
   pass
 } = require('../lib/stagepipe')
 
-describe.only('stagepipe tests', () => {
+describe('stagepipe tests', () => {
   it('should return input through an empty stagepipe', () => {
     const fn = stagepipe([ ])
     return fn(5).then(out => expect(out).to.equal(5))
@@ -77,6 +77,15 @@ describe.only('stagepipe tests', () => {
       return fn(42).then(() => {
         expect(spy.calledWith(42)).to.be.true()
       })
+    })
+
+    it('should join a previously split pipe', () => {
+      const fn = stagepipe([
+        split(2),
+        [ pass(), () => 6 ],
+        arity(2, (x, y) => x + y)
+      ])
+      return fn(12).then(out => expect(out).to.equal(18))
     })
   })
 })
