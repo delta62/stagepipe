@@ -1,4 +1,5 @@
 # Stagepipe
+[![Build Status](https://travis-ci.org/delta62/stagepipe.svg?branch=master)](https://travis-ci.org/delta62/stagepipe)
 
 Stagepipe is an asynchronous flow control library for JavaScript applications.
 
@@ -63,7 +64,7 @@ You can split streams into as many concurrent pipes as you'd like:
 ]
 ```
 
-Note that it *is* valid to terminate a pipeline with multipe pipes even though
+Note that it *is* valid to terminate a pipeline with multiple pipes even though
 only one output will be produced. In the previous example, the output of the
 pipeline would be the output of the `getFirstName` function.
 
@@ -75,7 +76,7 @@ you can omit the array notation for convenience:
 ``` js
 [
   split(), // <-- There is only one pipe in this stage, don't need [ ]
-  [ getFirstName, getEmail ] <-- Multiple pipes, must wrap in [ ]!
+  [ getFirstName, getEmail ] // <-- Multiple pipes, must wrap in [ ]!
 ]
 ```
 
