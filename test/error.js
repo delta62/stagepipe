@@ -38,4 +38,13 @@ describe('invalid pipelines', () => {
     const pipes = [ 'hi' ]
     expect(() => stagepipe([ pipes ])()).to.throw(StagepipeError)
   })
+
+  it('should throw when a pipe returns undefined', done => {
+    const pipeline = [ () => undefined ]
+    stagepipe(pipeline)()
+      .catch(err => {
+        expect(err).to.be.instanceOf(StagepipeError)
+        done()
+      })
+  })
 })

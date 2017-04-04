@@ -26,22 +26,22 @@ describe('stagepipe tests', () => {
 
   describe('split', () => {
     it('should split the input into two streams', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ split(), [ spy, spy ] ])
-      return fn().then(() => expect(spy.callCount).to.equal(2))
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ split(), [ stub, stub ] ])
+      return fn().then(() => expect(stub.callCount).to.equal(2))
     })
 
     it('should split the input into many streams', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ split(4), [ spy, spy, spy, spy ] ])
-      return fn().then(() => expect(spy.callCount).to.equal(4))
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ split(4), [ stub, stub, stub, stub ] ])
+      return fn().then(() => expect(stub.callCount).to.equal(4))
     })
 
     it('should pass the same input to each split recipient', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ split(), [ spy, spy ] ])
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ split(), [ stub, stub ] ])
       return fn(3.14).then(() => {
-        expect(spy.calledWith(3.14)).to.be.true()
+        expect(stub.calledWith(3.14)).to.be.true()
       })
     })
   })
@@ -55,27 +55,27 @@ describe('stagepipe tests', () => {
 
   describe('arity', () => {
     it('should pass multiple arguments to a pipe', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ split(), arity(2, spy) ])
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ split(), arity(2, stub) ])
       return fn(42).then(() => {
-        expect(spy.calledWith(42, 42)).to.be.true()
+        expect(stub.calledWith(42, 42)).to.be.true()
       })
     })
 
     it('should pass no arguments to a pipe', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ arity(0, spy) ])
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ arity(0, stub) ])
       return fn(42).then(() => {
-        const args = spy.firstCall.args
+        const args = stub.firstCall.args
         expect(args).to.have.length(0)
       })
     })
 
     it('should shift skipped arguments to subsequent pipes', () => {
-      const spy = sinon.spy()
-      const fn = stagepipe([ [ arity(0, noop), spy  ] ])
+      const stub = sinon.stub().returns(null)
+      const fn = stagepipe([ [ arity(0, noop), stub  ] ])
       return fn(42).then(() => {
-        expect(spy.calledWith(42)).to.be.true()
+        expect(stub.calledWith(42)).to.be.true()
       })
     })
 
@@ -90,8 +90,6 @@ describe('stagepipe tests', () => {
   })
 })
 
-function noop() { }
+function noop() { return null }
 
-function addOne(x) {
-  return x + 1
-}
+function addOne(x) { return x + 1 }
